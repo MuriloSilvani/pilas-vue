@@ -4,7 +4,6 @@ import router from '@/router'
 export default {
   state: {
     categories: [],
-    idCategory: null,
     category: null,
     loadingCategory: false
   },
@@ -51,14 +50,14 @@ export default {
         console.log(error)
       }
     },
-    async showCategories ({ commit, getters }) {
+    async showCategories ({ commit, getters }, _id) {
       if (getters.isLoadingCategory) {
         return
       }
       commit('SET_LOADING_CATEGORY', true)
 
       try {
-        const response = await api.get(`/categories/${getters.getIdCategory}`)
+        const response = await api.get(`/categories/${_id}`)
 
         commit('SET_CATEGORY', response.data)
         commit('SET_LOADING_CATEGORY', false)
@@ -66,17 +65,18 @@ export default {
         console.log(error)
       }
     },
-    async updateCategories ({ commit, dispatch, getters }) {
+    async updateCategories ({ commit, dispatch, getters }, data) {
       if (getters.isLoadingCategory) {
         return
       }
       commit('SET_LOADING_CATEGORY', true)
 
       try {
-        await api.put(`/categories/${getters.getIdCategory}`, getters.getCategory)
+        await api.put(`/categories/${data._id}`, data.body)
 
         commit('SET_LOADING_CATEGORY', false)
         dispatch('indexCategories')
+        router.push('/categories')
       } catch (error) {
         console.log(error)
       }
@@ -99,9 +99,6 @@ export default {
   getters: {
     getCategories (state) {
       return state.categories
-    },
-    getIdCategory (state) {
-      return state.idCategory
     },
     getCategory (state) {
       return state.category

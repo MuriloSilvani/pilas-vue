@@ -8,6 +8,17 @@
       </router-link>
     </div>
 
+    <md-empty-state
+      v-if='categories.length <= 0'
+      md-rounded
+      md-icon='devices_other'
+      md-label='Create your first category'
+    >
+      <router-link to='/categories/new'>
+        <md-button class='md-primary md-raised'>Create first category</md-button>
+      </router-link>
+    </md-empty-state>
+
     <md-progress-bar md-mode="indeterminate" v-if="isLoadingCategory" />
     <md-table
       v-if='categories.length > 0'
@@ -16,7 +27,7 @@
       md-sort-order='asc'
       md-fixed-header
       md-card
-      style='margin: 0'
+      style='margin: 0; overflow: auto'
     >
 
       <md-table-row
@@ -42,9 +53,13 @@
         <md-table-cell
           style='width: 10px'
         >
-          <md-button @click="confirmEdit(item._id)" class="md-icon-button md-dense md-raised">
-            <md-icon>edit</md-icon>
-          </md-button>
+          <router-link
+            :to='`categories/edit/${item._id}`'
+          >
+            <md-button class="md-icon-button md-dense md-raised">
+              <md-icon>edit</md-icon>
+            </md-button>
+          </router-link>
         </md-table-cell>
 
         <md-table-cell
@@ -57,17 +72,6 @@
 
       </md-table-row>
     </md-table>
-
-    <md-empty-state
-      v-if='categories.length <= 0'
-      md-rounded
-      md-icon='devices_other'
-      md-label='Create your first category'
-    >
-      <router-link to='/categories/new'>
-        <md-button class='md-primary md-raised'>Create first category</md-button>
-      </router-link>
-    </md-empty-state>
 
     <md-dialog-confirm
       :md-active.sync="dialogDelete"
@@ -103,14 +107,13 @@ export default {
     }
   },
   methods: {
-    confirmEdit (_id) {
-      this.id = _id
-      alert('wip')
-    },
     confirmDelete (_id) {
       this.id = _id
       this.dialogDelete = true
     }
+  },
+  mounted () {
+    this.indexCategories()
   }
 }
 </script>

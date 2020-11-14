@@ -17,8 +17,5 @@ export default {
       'updateLaunches',
       'destroyLaunches'
     ])
-  },
-  mounted () {
-    this.indexLaunches()
   }
 }

@@ -31,6 +31,10 @@ const routes = [
         path: 'categories/new',
         component: NewCategory
       }, {
+        name: 'Edit Category',
+        path: 'categories/edit/:id',
+        component: NewCategory
+      }, {
         path: 'launches',
         name: 'Launches',
         component: Launches
@@ -38,6 +42,10 @@ const routes = [
       {
         name: 'New Launch',
         path: 'launches/new',
+        component: NewLaunch
+      }, {
+        name: 'Edit Launch',
+        path: 'launches/edit/:id',
         component: NewLaunch
       }
     ]

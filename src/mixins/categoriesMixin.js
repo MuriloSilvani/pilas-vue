@@ -17,8 +17,5 @@ export default {
       'updateCategories',
       'destroyCategories'
     ])
-  },
-  mounted () {
-    this.indexCategories()
   }
 }

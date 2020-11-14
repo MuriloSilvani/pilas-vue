@@ -1,10 +1,23 @@
 <template>
   <md-app>
     <md-app-toolbar class="md-primary">
+
+      <md-button
+        class="md-icon-button"
+        @click="toggleMenu"
+      >
+        <md-icon>menu</md-icon>
+      </md-button>
+
       <span class="md-title">Pila$</span>
     </md-app-toolbar>
 
-    <md-app-drawer md-permanent="clipped">
+    <md-app-drawer
+      md-permanent="clipped"
+      :md-active.sync="menuVisible"
+
+      :md-swipeable='true'
+    >
       <md-list>
 
         <router-link to='/dashboard'>
@@ -39,7 +52,17 @@
 
 <script>
 export default {
-  name: 'Home'
+  name: 'Home',
+  data () {
+    return {
+      menuVisible: false
+    }
+  },
+  methods: {
+    toggleMenu () {
+      this.menuVisible = !this.menuVisible
+    }
+  }
 }
 </script>
 

@@ -77,8 +77,24 @@ export default {
       this.$v.$touch()
 
       if (!this.$v.$invalid) {
-        this.storeCategories(this.form)
+        if (!this.getCategory) {
+          this.storeCategories(this.form)
+        } else {
+          this.updateCategories({ body: this.form, _id: this.getCategory._id })
+        }
       }
+    }
+  },
+  watch: {
+    getCategory (category) {
+      this.form.name = category.name
+    }
+  },
+  mounted () {
+    const category = this.$route.params.id
+
+    if (category) {
+      this.showCategories(category)
     }
   }
 }

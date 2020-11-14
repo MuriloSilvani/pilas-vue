@@ -46,12 +46,12 @@
               <md-option
                 :value='1'
               >
-                +
+                deposit
               </md-option>
               <md-option
                 :value='0'
               >
-                -
+                withdrawal
               </md-option>
             </md-select>
             <span class="md-error" v-if="!$v.form.type.required">Type is required</span>
@@ -147,8 +147,29 @@ export default {
       this.$v.$touch()
 
       if (!this.$v.$invalid) {
-        this.storeLaunches(this.form)
+        if (!this.getLaunch) {
+          this.storeLaunches(this.form)
+        } else {
+          this.updateLaunches({ body: this.form, _id: this.getLaunch._id })
+        }
       }
+    }
+  },
+  watch: {
+    getLaunch (launch) {
+      this.form.type = launch.type
+      this.form.description = launch.description
+      this.form.value = launch.value
+      this.form.category_id = launch.category_id
+    }
+  },
+  mounted () {
+    this.indexCategories()
+
+    const launch = this.$route.params.id
+
+    if (launch) {
+      this.showLaunches(launch)
     }
   }
 }
