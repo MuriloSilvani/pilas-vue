@@ -41,6 +41,13 @@
           </md-list-item>
         </router-link>
 
+        <router-link to='/categories'>
+          <md-list-item>
+            <md-icon>move_to_inbox</md-icon>
+            <span class="md-list-item-text">DEPLOY</span>
+          </md-list-item>
+        </router-link>
+
       </md-list>
     </md-app-drawer>
 
