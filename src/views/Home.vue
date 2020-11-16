@@ -41,6 +41,17 @@
           </md-list-item>
         </router-link>
 
+        <md-button
+          @click='ioConnect(3333)'
+        >
+          3333
+        </md-button>
+        <md-button
+          @click='ioConnect(8080)'
+        >
+          8080
+        </md-button>
+
       </md-list>
     </md-app-drawer>
 
@@ -51,6 +62,8 @@
 </template>
 
 <script>
+import io from 'socket.io-client'
+
 export default {
   name: 'Home',
   data () {
@@ -61,6 +74,17 @@ export default {
   methods: {
     toggleMenu () {
       this.menuVisible = !this.menuVisible
+    },
+
+    ioConnect (port) {
+      const socket = io('http://localhost:' + port, {
+        query: { user: '12io3j1oi23j' }
+      })
+
+      socket.on('update_categories', user => {
+        alert('REALTIME')
+        console.log(user)
+      })
     }
   }
 }
