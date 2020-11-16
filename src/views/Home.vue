@@ -41,17 +41,6 @@
           </md-list-item>
         </router-link>
 
-        <md-button
-          @click='ioConnect(3333)'
-        >
-          3333
-        </md-button>
-        <md-button
-          @click='ioConnect(8080)'
-        >
-          8080
-        </md-button>
-
       </md-list>
     </md-app-drawer>
 
